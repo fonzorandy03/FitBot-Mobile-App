@@ -1,0 +1,34 @@
+name: fitbotapp
+description: "A new Flutter project."
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.9.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  rive: ^0.13.20
+  firebase_core: ^4.0.0
+  firebase_auth: ^6.0.1
+  cloud_firestore: ^6.0.0
+  fl_chart: ^0.68.0
+  js: ^0.7.2
+  provider: ^6.1.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/logo.png
+    - assets/rive/fitbot_hero.riv          # State Machine 1: inputs -> progress (number), appear (trigger)
+    - assets/rive/cta_button.riv           # State Machine 1: inputs -> pulse (trigger), press (trigger)
+    - assets/rive/confetti.riv             # State Machine 1: inputs -> fire (trigger)
+    - assets/rive/card_lift.riv            # State Machine 1: inputs -> hover (boolean), tap (trigger)

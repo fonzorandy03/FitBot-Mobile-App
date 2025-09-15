@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(/c:\\Users\\alfon\\Desktop\\fitbot_laurea\\fitbotapp\\lib/**)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
