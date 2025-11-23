@@ -24,7 +24,8 @@ dependencies:
   video_player: ^2.9.2
   path_provider: ^2.1.5        # Per salvare file temporanei
   camera: ^0.10.5+5
-
+  permission_handler: ^11.0.1
+  video_thumbnail: ^0.5.3
 
 dev_dependencies:
   flutter_test:

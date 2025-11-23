@@ -42,7 +42,7 @@ class _PTAIWorkoutScreenState extends State<PTAIWorkoutScreen>
   late Animation<double> _pulseAnimation;
   
   // API Configuration
-  static const String API_URL = 'http://127.0.0.1:5000/health';  // ⚠️ MODIFICA QUESTO
+  static const String API_URL = 'http://10.0.2.2:5000';  // ⚠️ MODIFICA QUESTO
   
   @override
   void initState() {

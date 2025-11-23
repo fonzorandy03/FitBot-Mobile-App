@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'PTAIWorkoutScreen.dart';
+import 'PTAIVideoAnalysisScreen.dart';
 
 /// Schermata di selezione esercizio per PT AI
 class PTAIExerciseSelector extends StatefulWidget {
@@ -10,40 +11,48 @@ class PTAIExerciseSelector extends StatefulWidget {
 }
 
 class _PTAIExerciseSelectorState extends State<PTAIExerciseSelector> {
-  // Esercizi supportati dal modello
+  // ✅ ESERCIZI SUPPORTATI DAL MODELLO (CORRETTI)
   final List<Map<String, dynamic>> _exercises = [
     {
-      'name': 'Squat',
-      'icon': Icons.accessibility_new,
+      'name': 'Jumping Jacks',
+      'icon': Icons.directions_run,
       'color': const Color(0xFF4CAF50),
-      'defaultReps': 15,
-      'description': 'Piegamenti sulle gambe',
+      'defaultReps': 20,
+      'description': 'Salti con apertura gambe',
     },
     {
-      'name': 'Push-up',
+      'name': 'Pull ups',
       'icon': Icons.fitness_center,
       'color': const Color(0xFF2196F3),
-      'defaultReps': 12,
+      'defaultReps': 10,
+      'description': 'Trazioni alla sbarra',
+    },
+    {
+      'name': 'Push Ups',
+      'icon': Icons.airline_seat_flat,
+      'color': const Color(0xFF9C27B0),
+      'defaultReps': 15,
       'description': 'Piegamenti sulle braccia',
     },
     {
-      'name': 'Curl',
-      'icon': Icons.sports_gymnastics,
-      'color': const Color(0xFF9C27B0),
-      'defaultReps': 10,
-      'description': 'Curl bicipiti',
+      'name': 'Russian twists',
+      'icon': Icons.refresh,
+      'color': const Color(0xFFFF9800),
+      'defaultReps': 25,
+      'description': 'Torsioni russe addominali',
     },
     {
-      'name': 'Plank',
-      'icon': Icons.airline_seat_flat,
-      'color': const Color(0xFFFF9800),
-      'defaultReps': 30,
-      'description': 'Plank isometrico (secondi)',
+      'name': 'Squats',
+      'icon': Icons.accessibility_new,
+      'color': const Color(0xFFE91E63),
+      'defaultReps': 20,
+      'description': 'Piegamenti sulle gambe',
     },
   ];
 
-  String _selectedExercise = 'Squat';
-  int _targetReps = 15;
+  String _selectedExercise = 'Squats';
+  int _targetReps = 20;
+  String _selectedMode = 'live'; // 'live' o 'video'
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +97,7 @@ class _PTAIExerciseSelectorState extends State<PTAIExerciseSelector> {
               child: Column(
                 children: [
                   const Icon(
-                    Icons.videocam_rounded,
+                    Icons.auto_awesome,
                     color: Colors.white,
                     size: 48,
                   ),
@@ -103,7 +112,7 @@ class _PTAIExerciseSelectorState extends State<PTAIExerciseSelector> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Il tuo personal trainer virtuale ti guiderà in tempo reale',
+                    'Scegli modalità: tempo reale o analisi video',
                     style: TextStyle(
                       color: Colors.white.withOpacity(0.9),
                       fontSize: 14,
@@ -112,6 +121,43 @@ class _PTAIExerciseSelectorState extends State<PTAIExerciseSelector> {
                   ),
                 ],
               ),
+            ),
+            
+            const SizedBox(height: 32),
+            
+            // 🆕 SELEZIONE MODALITÀ
+            const Text(
+              'Modalità Allenamento',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w700,
+                color: Color(0xFF2C2C2C),
+              ),
+            ),
+            const SizedBox(height: 16),
+            
+            Row(
+              children: [
+                Expanded(
+                  child: _buildModeCard(
+                    'live',
+                    'Tempo Reale',
+                    'Feedback istantaneo durante l\'esercizio',
+                    Icons.videocam,
+                    const Color(0xFF4CAF50),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: _buildModeCard(
+                    'video',
+                    'Analisi Video',
+                    'Carica un video e ricevi feedback dettagliato',
+                    Icons.video_library,
+                    const Color(0xFF2196F3),
+                  ),
+                ),
+              ],
             ),
             
             const SizedBox(height: 32),
@@ -203,82 +249,86 @@ class _PTAIExerciseSelectorState extends State<PTAIExerciseSelector> {
             
             const SizedBox(height: 32),
             
-            // Target Ripetizioni
-            const Text(
-              'Ripetizioni Target',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w700,
-                color: Color(0xFF2C2C2C),
+            // Target Ripetizioni (solo per modalità live)
+            if (_selectedMode == 'live') ...[
+              const Text(
+                'Ripetizioni Target',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xFF2C2C2C),
+                ),
               ),
-            ),
-            const SizedBox(height: 16),
-            
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconButton(
-                  onPressed: () {
-                    if (_targetReps > 5) {
-                      setState(() => _targetReps--);
-                    }
-                  },
-                  icon: Container(
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF4CAF50),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: const Icon(Icons.remove, color: Colors.white),
-                  ),
-                ),
-                
-                const SizedBox(width: 24),
-                
-                Container(
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF4CAF50),
-                    borderRadius: BorderRadius.circular(16),
-                    boxShadow: [
-                      BoxShadow(
-                        color: const Color(0xFF4CAF50).withOpacity(0.3),
-                        blurRadius: 15,
-                        offset: const Offset(0, 8),
+              const SizedBox(height: 16),
+              
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      if (_targetReps > 5) {
+                        setState(() => _targetReps--);
+                      }
+                    },
+                    icon: Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF4CAF50),
+                        borderRadius: BorderRadius.circular(12),
                       ),
-                    ],
-                  ),
-                  child: Text(
-                    '$_targetReps',
-                    style: const TextStyle(
-                      fontSize: 48,
-                      fontWeight: FontWeight.w900,
-                      color: Colors.white,
+                      child: const Icon(Icons.remove, color: Colors.white),
                     ),
                   ),
-                ),
-                
-                const SizedBox(width: 24),
-                
-                IconButton(
-                  onPressed: () {
-                    if (_targetReps < 50) {
-                      setState(() => _targetReps++);
-                    }
-                  },
-                  icon: Container(
-                    padding: const EdgeInsets.all(12),
+                  
+                  const SizedBox(width: 24),
+                  
+                  Container(
+                    padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
                       color: const Color(0xFF4CAF50),
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color(0xFF4CAF50).withOpacity(0.3),
+                          blurRadius: 15,
+                          offset: const Offset(0, 8),
+                        ),
+                      ],
                     ),
-                    child: const Icon(Icons.add, color: Colors.white),
+                    child: Text(
+                      '$_targetReps',
+                      style: const TextStyle(
+                        fontSize: 48,
+                        fontWeight: FontWeight.w900,
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
-                ),
-              ],
-            ),
-            
-            const SizedBox(height: 48),
+                  
+                  const SizedBox(width: 24),
+                  
+                  IconButton(
+                    onPressed: () {
+                      if (_targetReps < 50) {
+                        setState(() => _targetReps++);
+                      }
+                    },
+                    icon: Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF4CAF50),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: const Icon(Icons.add, color: Colors.white),
+                    ),
+                  ),
+                ],
+              ),
+              
+              const SizedBox(height: 48),
+            ] else ...[
+              const SizedBox(height: 32),
+            ],
             
             // Pulsante Start
             SizedBox(
@@ -286,33 +336,57 @@ class _PTAIExerciseSelectorState extends State<PTAIExerciseSelector> {
               height: 56,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => PTAIWorkoutScreen(
-                        exerciseName: _selectedExercise,
-                        targetReps: _targetReps,
+                  if (_selectedMode == 'live') {
+                    // Modalità tempo reale (esistente)
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PTAIWorkoutScreen(
+                          exerciseName: _selectedExercise,
+                          targetReps: _targetReps,
+                        ),
                       ),
-                    ),
-                  );
+                    );
+                  } else {
+                    // 🆕 Modalità analisi video
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PTAIVideoAnalysisScreen(
+                          exerciseName: _selectedExercise,
+                        ),
+                      ),
+                    );
+                  }
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF4CAF50),
+                  backgroundColor: _selectedMode == 'live' 
+                      ? const Color(0xFF4CAF50)
+                      : const Color(0xFF2196F3),
                   foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
                   ),
                   elevation: 0,
-                  shadowColor: const Color(0xFF4CAF50).withOpacity(0.3),
+                  shadowColor: (_selectedMode == 'live' 
+                      ? const Color(0xFF4CAF50)
+                      : const Color(0xFF2196F3)).withOpacity(0.3),
                 ),
-                child: const Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.play_arrow_rounded, size: 28),
-                    SizedBox(width: 8),
+                    Icon(
+                      _selectedMode == 'live' 
+                          ? Icons.play_arrow_rounded 
+                          : Icons.upload_rounded,
+                      size: 28,
+                    ),
+                    const SizedBox(width: 8),
                     Text(
-                      'Inizia Workout',
-                      style: TextStyle(
+                      _selectedMode == 'live' 
+                          ? 'Inizia Allenamento'
+                          : 'Carica Video',
+                      style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
                       ),
@@ -344,7 +418,9 @@ class _PTAIExerciseSelectorState extends State<PTAIExerciseSelector> {
                   const SizedBox(width: 12),
                   Expanded(
                     child: Text(
-                      'L\'AI rileverà automaticamente i tuoi movimenti e conterà le ripetizioni',
+                      _selectedMode == 'live'
+                          ? 'L\'AI rileverà automaticamente i tuoi movimenti e conterà le ripetizioni in tempo reale'
+                          : 'Carica un video del tuo allenamento e ricevi feedback dettagliato sulla tua forma',
                       style: TextStyle(
                         fontSize: 13,
                         color: const Color(0xFF2196F3).withOpacity(0.9),
@@ -359,5 +435,81 @@ class _PTAIExerciseSelectorState extends State<PTAIExerciseSelector> {
       ),
     );
   }
+  
+  Widget _buildModeCard(
+    String mode,
+    String title,
+    String description,
+    IconData icon,
+    Color color,
+  ) {
+    final isSelected = _selectedMode == mode;
+    
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _selectedMode = mode;
+        });
+      },
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: isSelected ? color.withOpacity(0.1) : Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color: isSelected ? color : const Color(0xFFE0E0E0),
+            width: isSelected ? 2 : 1,
+          ),
+          boxShadow: isSelected
+              ? [
+                  BoxShadow(
+                    color: color.withOpacity(0.2),
+                    blurRadius: 10,
+                    offset: const Offset(0, 4),
+                  ),
+                ]
+              : [],
+        ),
+        child: Column(
+          children: [
+            Container(
+              width: 50,
+              height: 50,
+              decoration: BoxDecoration(
+                color: color.withOpacity(isSelected ? 0.2 : 0.1),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Icon(icon, color: color, size: 28),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w700,
+                color: isSelected ? color : const Color(0xFF2C2C2C),
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 6),
+            Text(
+              description,
+              style: const TextStyle(
+                fontSize: 12,
+                color: Color(0xFF666666),
+              ),
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+            if (isSelected) ...[
+              const SizedBox(height: 8),
+              Icon(Icons.check_circle, color: color, size: 20),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
 }
-
