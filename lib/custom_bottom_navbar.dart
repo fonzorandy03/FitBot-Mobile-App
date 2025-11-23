@@ -6,11 +6,11 @@ class CustomBottomNavBar extends StatelessWidget {
   final List<NavBarItem> items;
 
   const CustomBottomNavBar({
-    Key? key,
+    super.key,
     required this.currentIndex,
     required this.onTap,
     required this.items,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -133,6 +133,8 @@ class FitBotNavItems {
 
 // Esempio di utilizzo in un widget Scaffold
 class ExampleUsage extends StatefulWidget {
+  const ExampleUsage({super.key});
+
   @override
   _ExampleUsageState createState() => _ExampleUsageState();
 }
@@ -227,6 +229,8 @@ class _ExampleUsageState extends State<ExampleUsage> {
 
 // Widget principale per testare la navigation bar
 class CustomNavBarDemo extends StatelessWidget {
+  const CustomNavBarDemo({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

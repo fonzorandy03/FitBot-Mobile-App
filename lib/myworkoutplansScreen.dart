@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
 import 'WorkoutPlanDao.dart';
-import 'AuthContext.dart';
 import 'WorkoutPlanDetailScreen.dart';
 
 class MyWorkoutPlansScreen extends StatefulWidget {

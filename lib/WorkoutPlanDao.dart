@@ -487,7 +487,7 @@ class WorkoutPlanDAO {
 
       final doc = querySnapshot.docs.first;
       final plan = WorkoutPlan.fromMap(
-        doc.data() as Map<String, dynamic>, 
+        doc.data(), 
         doc.id
       );
 

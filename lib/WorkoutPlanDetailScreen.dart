@@ -5,9 +5,9 @@ class WorkoutPlanDetailScreen extends StatefulWidget {
   final WorkoutPlan workoutPlan;
   
   const WorkoutPlanDetailScreen({
-    Key? key,
+    super.key,
     required this.workoutPlan,
-  }) : super(key: key);
+  });
 
   @override
   _WorkoutPlanDetailScreenState createState() => _WorkoutPlanDetailScreenState();
@@ -432,7 +432,7 @@ class _WorkoutPlanDetailScreenState extends State<WorkoutPlanDetailScreen>
             int index = entry.key;
             Exercise exercise = entry.value;
             return _buildExerciseCard(exercise, index + 1);
-          }).toList(),
+          }),
         ],
       ),
     );
@@ -622,7 +622,7 @@ class _WorkoutPlanDetailScreenState extends State<WorkoutPlanDetailScreen>
                   ),
                 ],
               ),
-            )).toList(),
+            )),
       ],
     ),
   );

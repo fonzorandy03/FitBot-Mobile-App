@@ -555,7 +555,7 @@ class DietPlanDAO {
 
       final doc = querySnapshot.docs.first;
       final plan = DietPlan.fromMap(
-        doc.data() as Map<String, dynamic>, 
+        doc.data(), 
         doc.id
       );
 

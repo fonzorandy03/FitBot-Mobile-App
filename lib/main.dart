@@ -11,6 +11,7 @@ import 'authcontext.dart';
 import 'loginscreen.dart';
 import 'TracciamentoProgressi.dart';
 import  'DietScreen.dart';
+import  'PTAIExerciseSelector.dart';
 
 
 void main() async {
@@ -86,7 +87,7 @@ class _MainNavigationState extends State<MainNavigation> {
       case 3:
         return ProgressTrackingScreen();
       case 4:
-        return VideoScreen();
+        return PTAIExerciseSelector();
       default:
         return FitBotHomePage();
     }

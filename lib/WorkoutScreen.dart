@@ -997,15 +997,14 @@ void _createPlan() {
 
   final auth = context.read<AuthContext>();
   if (!auth.isAuthenticated) {
-    // Utente non loggato -> porta al LoginScreen
+
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (_) => const LoginScreen()),
+      MaterialPageRoute(builder: (_) => LoginScreen()),
     );
     return;
   }
 
-  // Loggato -> procedi con la generazione
   Navigator.push(
     context,
     MaterialPageRoute(

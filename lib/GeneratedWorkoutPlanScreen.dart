@@ -12,13 +12,13 @@ class GeneratedWorkoutPlanScreen extends StatefulWidget {
   final String additionalNotes;
 
   const GeneratedWorkoutPlanScreen({
-    Key? key,
+    super.key,
     required this.age,
     required this.frequency,
     required this.goal,
     required this.experience,
     required this.additionalNotes,
-  }) : super(key: key);
+  });
 
   @override
   _GeneratedWorkoutPlanScreenState createState() => _GeneratedWorkoutPlanScreenState();
@@ -495,7 +495,7 @@ IMPORTANTE:
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 40),
-          Container(
+          SizedBox(
             width: 200,
             child: LinearProgressIndicator(
               backgroundColor: Color(0xFFE0E0E0),
@@ -762,7 +762,7 @@ IMPORTANTE:
           ),
         ),
         SizedBox(height: 16),
-        ...giorni.map((giorno) => _buildWorkoutDay(giorno)).toList(),
+        ...giorni.map((giorno) => _buildWorkoutDay(giorno)),
       ],
     );
   }
@@ -820,7 +820,7 @@ Widget _buildWorkoutDay(Map<String, dynamic> giorno) {
           int index = entry.key;
           Map<String, dynamic> exercise = entry.value;
           return _buildExerciseCard(exercise, index + 1);
-        }).toList(),
+        }),
       ],
     ),
   );
@@ -1028,7 +1028,7 @@ Widget _buildExerciseDetailNew(IconData icon, String title, String value) {
                     ),
                   ],
                 ),
-              )).toList(),
+              )),
         ],
       ),
     );
